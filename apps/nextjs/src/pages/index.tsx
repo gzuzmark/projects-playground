@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import { trpc } from "../utils/trpc";
+import { getBaseUrl, trpc } from "../utils/trpc";
 import type { inferProcedureOutput } from "@trpc/server";
 import type { AppRouter } from "@acme/api";
 import { useAuth, UserButton } from "@clerk/nextjs";
@@ -20,8 +20,9 @@ const PostCard: React.FC<{
 };
 
 const Home: NextPage = () => {
-  const postQuery = trpc.post.all.useQuery();
-
+  
+  const videoQuery = trpc.video.byId.useQuery(0);
+ 
   return (
     <>
       <Head>
@@ -31,22 +32,10 @@ const Home: NextPage = () => {
       </Head>
       <main className="flex h-screen flex-col items-center bg-gradient-to-b from-[#2e026d] to-[#15162c] text-white">
         <div className="container flex flex-col items-center justify-center gap-12 px-4 py-8">
-          <h1 className="text-5xl font-extrabold tracking-tight sm:text-[5rem]">
-            Create <span className="text-[hsl(280,100%,70%)]">T3</span> Turbo
-          </h1>
-          <AuthShowcase />
-
-          <div className="flex h-[60vh] justify-center overflow-y-scroll px-4 text-2xl">
-            {postQuery.data ? (
-              <div className="flex flex-col gap-4">
-                {postQuery.data?.map((p) => {
-                  return <PostCard key={p.id} post={p} />;
-                })}
-              </div>
-            ) : (
-              <p>Loading..</p>
-            )}
-          </div>
+        <video controls muted autoPlay crossOrigin="anonymous">
+          <source src={`http://localhost:3000/api/trpc/video.video?batch=1&input={"0":{"json":0}}`} type="video/mp4"></source>          
+        </video>
+        {/* <h1>{ this.state.videoData.name }</h1> */}
         </div>
       </main>
     </>

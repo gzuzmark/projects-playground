@@ -1,13 +1,19 @@
 import { prisma } from "@acme/db";
 import { type inferAsyncReturnType } from "@trpc/server";
-import { type CreateNextContextOptions } from "@trpc/server/adapters/next";
+import { type CreateNextContextOptions  } from "@trpc/server/adapters/next";
 import { getAuth, clerkClient } from "@clerk/nextjs/server";
 import type { User } from "@clerk/nextjs/api";
+import type {
+  NextApiRequest,  
+  NextApiResponse
+} from 'next/types';
 /**
  * Replace this with an object if you want to pass things to createContextInner
  */
-type IUserProps = {
+type IContextProps = {
   user: User | null;
+  req: NextApiRequest;
+  res: NextApiResponse;
 };
 
 /** Use this helper for:
@@ -15,10 +21,12 @@ type IUserProps = {
  *  - trpc's `createSSGHelpers` where we don't have req/res
  * @see https://beta.create.t3.gg/en/usage/trpc#-servertrpccontextts
  */
-export const createContextInner = async ({ user }: IUserProps) => {
+export const createContextInner = async ({ user, req, res }: IContextProps) => {
   return {
     user,
     prisma,
+    req,
+    res
   };
 };
 
@@ -34,10 +42,11 @@ export const createContext = async (opts: CreateNextContextOptions) => {
     const user = userId ? await clerkClient.users.getUser(userId) : null;
     return user;
   }
+  
 
   const user = await getUser();
 
-  return await createContextInner({ user });
+  return await createContextInner({ user, req: opts.req, res: opts.res });
 };
 
 export type Context = inferAsyncReturnType<typeof createContext>;
