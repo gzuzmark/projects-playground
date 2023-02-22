@@ -21,7 +21,10 @@ const PostCard: React.FC<{
 
 const Home: NextPage = () => {
   
-  const videoQuery = trpc.video.byId.useQuery(0);
+  //const listVideoQuery = trpc.video.byId.useQuery(0);
+  const {data} = trpc.video.video.useQuery(0);
+  console.log({data})
+
  
   return (
     <>
@@ -33,7 +36,8 @@ const Home: NextPage = () => {
       <main className="flex h-screen flex-col items-center bg-gradient-to-b from-[#2e026d] to-[#15162c] text-white">
         <div className="container flex flex-col items-center justify-center gap-12 px-4 py-8">
         <video controls muted autoPlay crossOrigin="anonymous">
-          <source src={`http://localhost:3000/api/trpc/video.video?batch=1&input={"0":{"json":0}}`} type="video/mp4"></source>          
+          
+          <source src={'http://localhost:3000/api/trpc/video.video?batch=1&input=%7B%220%22%3A%7B%22json%22%3A0%7D%7D'} type="video/mp4"></source>          
         </video>
         {/* <h1>{ this.state.videoData.name }</h1> */}
         </div>

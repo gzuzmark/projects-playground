@@ -33,7 +33,7 @@ const videoRouter = router({
     }),
 
     video: publicProcedure.input(z.number()).query(({ctx, input}) => {
-        const path = `../../assets/${input}.mp4`;
+        const path = `assets/${input}.mp4`;
         const stat = fs.statSync(path);
         const fileSize = stat.size;
         const { range } = ctx.req.headers
@@ -53,6 +53,7 @@ const videoRouter = router({
               'Content-Length': chunksize,
               'Content-Type': 'video/mp4',
             }
+            console.log("Write head")
             ctx.res.writeHead(206, head);
             file.pipe(ctx.res);
         } else {

@@ -4,4 +4,5 @@ packages:
   - apps/plutotv
   - packages/api
   - packages/db
+  - packages/eslint-config-custom
   - packages/config/*
