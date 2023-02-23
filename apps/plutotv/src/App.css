@@ -125,3 +125,21 @@
   flex-direction: column;
   gap: 1.25rem;
 }
+
+.category__favorite-btn {
+  display: flex;
+  background-color: #4b4b4b;
+  color: white;
+  padding: 5px 16px;
+  border-radius: 5px;
+  font-size: 0.75em;
+  margin-left: auto;
+}
+.category__favorite-btn:hover {
+  background-color: #eb4a4a;
+  color: white;
+}
+.category__favorite-btn--active {
+  background-color: #eb4a4a;
+  color: white;
+}
