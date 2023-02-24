@@ -2,6 +2,7 @@ packages:
   - apps/expo
   - apps/nextjs
   - apps/plutotv
+  - apps/hydrogen-storefront
   - packages/api
   - packages/db
   - packages/eslint-config-custom

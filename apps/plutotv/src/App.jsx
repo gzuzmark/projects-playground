@@ -28,21 +28,19 @@ const Category = ({ category, setFilter, setFavorites, favorites }) => {
   // }
   return (
     <div className='cards-container' id={`category-${category.id}`}>
-      <div className='card'>
-        <img
-          alt='category icon'
-          src={url}
-          // onError="this.onerror=null; this.src='vite.svg'"1
-        />
-        <div
-          className='container'
-          onClick={filterHandler}
-          onKeyUp={filterHandler}
-          role='button'
-          tabIndex={0}
-        >
-          {category.name}
-        </div>
+      <div className='card item'>
+        <button type='button' className='icon-button' tabIndex='0'>
+          <span className='button-holder'>
+            <i aria-hidden='true'>
+              <img
+                className='icon-0-2-181 icon'
+                src='https://images.pluto.tv/maincategory/618da8b51add6600071d686b/svgImageUrl-1636780391296.svg'
+                alt='Pluto TV'
+              />
+            </i>
+            <span className='text-holder'>Pluto TV</span>
+          </span>
+        </button>
         <div
           className={classNames(
             'category__favorite-btn',
@@ -83,20 +81,22 @@ function App() {
   };
 
   return (
-    <div className='App'>
+    <div className='app-container'>
       <header>
-        <span>Welcome to the </span>
-        <img
-          src={plutoLogo}
-          style={{ backgroundColor: 'black' }}
-          alt='pluto-logo'
-        />
-        <span> code challenge!</span>
+        <div className='container'>
+          <span>Welcome to the </span>
+          <img
+            src={plutoLogo}
+            style={{ backgroundColor: 'black' }}
+            alt='pluto-logo'
+          />
+          <span> code challenge!</span>
+        </div>
       </header>
-      <div className='app-container'>
-        <section className='content-container categories '>
+      <div className='content-container'>
+        <section className='categories-container categories '>
           <h2>Categories</h2>
-          <ul className='category-list'>
+          <ul className='list'>
             {categories.slice(0, 20).map((cat) => (
               <Category
                 category={cat}
@@ -107,9 +107,9 @@ function App() {
             ))}
           </ul>
         </section>
-        <section className='content-container channels'>
+        <section className='channels-container channels'>
           <h2>Channel</h2>
-          <ul>
+          <ul className='list'>
             {filteredChannels.length ? (
               filteredChannels.map((ch) => (
                 <li id={`channel-${ch.id}`}>{ch.name}</li>

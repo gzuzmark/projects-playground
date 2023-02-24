@@ -1,7 +1,13 @@
+/** @type {import("eslint").Linter.Config} */
 module.exports = {
-  extends: ["next", "turbo", "wesbos/typescript"],
-  rules: {
-    "@next/next/no-html-link-for-pages": "off",
-    "react/jsx-key": "off",
+  root: true,
+  parserOptions: {
+    tsconfigRootDir: __dirname,
+    project: [
+      "./tsconfig.json",
+      "./apps/*/tsconfig.json",
+      "./packages/*/tsconfig.json",
+    ],
   },
+  extends: ["next", "turbo", "wesbos"],
 };
